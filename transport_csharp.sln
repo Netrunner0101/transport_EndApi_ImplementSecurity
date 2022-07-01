@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "transport_csharp", "transport_csharp\transport_csharp.csproj", "{BEF3BFA2-7D79-4EF5-9B34-F117D36CD51C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{EDEA0902-706C-4D3E-97C8-83609860669F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{29AE48CA-CF0E-4380-92BE-2F26177C58FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BEF3BFA2-7D79-4EF5-9B34-F117D36CD51C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEF3BFA2-7D79-4EF5-9B34-F117D36CD51C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEF3BFA2-7D79-4EF5-9B34-F117D36CD51C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEF3BFA2-7D79-4EF5-9B34-F117D36CD51C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDEA0902-706C-4D3E-97C8-83609860669F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDEA0902-706C-4D3E-97C8-83609860669F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDEA0902-706C-4D3E-97C8-83609860669F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDEA0902-706C-4D3E-97C8-83609860669F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29AE48CA-CF0E-4380-92BE-2F26177C58FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29AE48CA-CF0E-4380-92BE-2F26177C58FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29AE48CA-CF0E-4380-92BE-2F26177C58FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29AE48CA-CF0E-4380-92BE-2F26177C58FE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3D22987A-6F55-4ED2-ADF3-9CE5F7199297}
+	EndGlobalSection
+EndGlobal
