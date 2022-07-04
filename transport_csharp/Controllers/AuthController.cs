@@ -2,6 +2,7 @@
 using DAL.data;
 using DAL.models;
 using entity_jwt_aspnetcore.models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ namespace entity_jwt_aspnetcore.Controllers
 {
     [ApiController]
     [Route("tms")]
+    [AllowAnonymous]
     public class AuthController : ControllerBase
     {
         public static UserApiModel user = new UserApiModel();
@@ -34,7 +36,7 @@ namespace entity_jwt_aspnetcore.Controllers
             _jwtSettings = jwtsettings;
         }
 
-        [HttpPut("register")]
+        [HttpPost("register")]
         public async Task<ActionResult<UserApiModel>> RegisterUser([FromBody] UserApiModel requestUser)
         {
             // 1) First create user
@@ -48,6 +50,7 @@ namespace entity_jwt_aspnetcore.Controllers
             CreatePasswordHash(emailRequest, passwordRequest, out byte[] passwordHash, out byte[] passwordSalt);
 
             requestUser.passwordHash = passwordHash;
+
             requestUser.passwordSalt = passwordSalt;
 
             return Ok(requestUser);
@@ -63,7 +66,7 @@ namespace entity_jwt_aspnetcore.Controllers
                 return BadRequest("User not found" + "  user email  " + userCheckMail + "  login email  " + requestUser.email + " Password "+requestUser.password);
             }
 
-/*            byte[] passwordHashUser = searchHash(userCheckMail);
+/*          byte[] passwordHashUser = searchHash(userCheckMail);
 
             byte[] passwordHashSalt = searchSalt(userCheckMail);
 

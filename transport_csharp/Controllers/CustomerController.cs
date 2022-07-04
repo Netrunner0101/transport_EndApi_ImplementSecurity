@@ -9,6 +9,7 @@ namespace entity_jwt_aspnetcore.Controllers
 {
     [Route("tms")]
     [ApiController]
+    [Authorize]
     public class CustomerController : ControllerBase
     {
         public readonly CustomerServiceBll _customerService;

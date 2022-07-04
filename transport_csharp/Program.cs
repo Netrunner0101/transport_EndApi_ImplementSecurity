@@ -21,7 +21,9 @@ builder.Services.AddSingleton(jwtSettings);
 
 builder.Services.AddControllers();
 
-/*builder.Services.AddSwaggerGen(options =>
+// Authentication Bearer
+
+builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -49,13 +51,15 @@ builder.Services.AddControllers();
             new string[] { }
         }
     });
-});*/
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
 
-builder.Services.AddSwaggerGen(options =>
+// Eric authentication 
+
+/*builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -66,7 +70,7 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-
+*/
 /*options.OperationFilter<SecurityRequirementsOperationFilter>(); // Mat Frayer*/
 
 //Add authentication middleware
@@ -142,43 +146,43 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddScoped<AuthServiceDal>((b) => new AuthServiceDal(builder.Configuration.GetConnectionString("Connection2")));
 
-    builder.Services.AddScoped<CustomerServiceDal>((b) => new CustomerServiceDal(builder.Configuration.GetConnectionString("Connection2")));
+builder.Services.AddScoped<CustomerServiceDal>((b) => new CustomerServiceDal(builder.Configuration.GetConnectionString("Connection2")));
 
-    builder.Services.AddScoped<DeliveryServiceDal>((b) => new DeliveryServiceDal(builder.Configuration.GetConnectionString("Connection2")));
+builder.Services.AddScoped<DeliveryServiceDal>((b) => new DeliveryServiceDal(builder.Configuration.GetConnectionString("Connection2")));
 
-    builder.Services.AddScoped<DriverServiceDal>((b) => new DriverServiceDal(builder.Configuration.GetConnectionString("Connection2")));
+builder.Services.AddScoped<DriverServiceDal>((b) => new DriverServiceDal(builder.Configuration.GetConnectionString("Connection2")));
 
-    builder.Services.AddScoped<TransporterServiceDal>((b) => new TransporterServiceDal(builder.Configuration.GetConnectionString("Connection2")));
+builder.Services.AddScoped<TransporterServiceDal>((b) => new TransporterServiceDal(builder.Configuration.GetConnectionString("Connection2")));
 
-    // Dont forget to inject all depency like BLL .
+// Dont forget to inject all depency like BLL .
 
 
-    builder.Services.AddScoped<AuthServiceBll>();
+builder.Services.AddScoped<AuthServiceBll>();
 
-    builder.Services.AddScoped<CustomerServiceBll>();
+builder.Services.AddScoped<CustomerServiceBll>();
 
-    builder.Services.AddScoped<DeliveryServiceBll>();
+builder.Services.AddScoped<DeliveryServiceBll>();
 
-    builder.Services.AddScoped<DriverServiceBll>();
+builder.Services.AddScoped<DriverServiceBll>();
 
-    builder.Services.AddScoped<TransporterServiceBll>();
+builder.Services.AddScoped<TransporterServiceBll>();
 
-    var app = builder.Build();
+var app = builder.Build();
 
-    // Configure the HTTP request pipeline.
-    if (app.Environment.IsDevelopment())
-    {
-        app.UseSwagger();
-        app.UseSwaggerUI();
-    }
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
-    app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
-    // Add Authentication()
-    app.UseAuthentication();
+// Add Authentication()
+app.UseAuthentication();
 
-    app.UseAuthorization();
+app.UseAuthorization();
 
-    app.MapControllers();
+app.MapControllers();
 
-    app.Run();
+app.Run();

@@ -11,9 +11,11 @@ namespace DAL.data
 
         // Un constreur pour la dal qui récupère la connection string.
         // cnt string pour la migration =/= appsetting.json
+
+        // CAUTION : when in appdbcontext dal the connection string can be only  \  but in the API it must be \\ (double slahs)
         public ApplicationDbContext() 
         {
-            this._cnstr = @"Data Source=DESKTOP-VJT82S0;Initial Catalog=tms_test;User ID=azerty;Password=azerty;";
+            this._cnstr = @"Data Source=DESKTOP-L4HCRF9\MSSQLSERVER01;Initial Catalog=tms_test;User ID=azerty;Password=azerty;";
         }
 
         // un second constructeur qui va aller communiquer avec l'application.

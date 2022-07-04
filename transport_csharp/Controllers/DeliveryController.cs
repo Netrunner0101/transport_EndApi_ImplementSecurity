@@ -1,6 +1,7 @@
 ﻿using BLL.services;
 using entity_jwt_aspnetcore.mapper;
 using entity_jwt_aspnetcore.models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace entity_jwt_aspnetcore.Controllers
 {
     [Route("tms")]
     [ApiController]
+    [Authorize]
     public class DeliveryController : ControllerBase
     {
 
