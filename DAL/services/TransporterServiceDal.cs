@@ -69,6 +69,21 @@ namespace DAL.services
             }
         }
 
+        /// <summary>
+        /// Return transporter by id
+        /// </summary>
+        /// <param name="idtr"></param>
+        /// <returns></returns>
+        /// 
+        public TransporterModelDal GetByName(string name)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext(_cnstr))
+            {
+                var transporter = db.transporter.Where(tr => tr.name == name).FirstOrDefault();
+                return transporter;
+            }
+        }
+
         public void Update(TransporterModelDal transporter, int idtr)
         {
             try

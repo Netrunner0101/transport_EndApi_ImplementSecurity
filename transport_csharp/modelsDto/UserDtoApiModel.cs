@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
+
+// NOT USED
+//
 namespace entity_jwt_aspnetcore.models
 {
     public class UserDtoApiModel

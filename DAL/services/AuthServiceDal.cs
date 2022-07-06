@@ -43,50 +43,69 @@ namespace DAL.services
             }
         }
 
-/*        private void CreatePasswordHash(UserDal newUser, out byte[] passwordHash, out byte[] passwordSalt)
+        public UserDal GetDetailsByEmail(string email)
         {
-            try
+            using (ApplicationDbContext db = new ApplicationDbContext(_cnstr))
             {
-                using (ApplicationDbContext db = new ApplicationDbContext())
+                try
                 {
-                    using (var hmac = new HMACSHA512())
-                    {
-                        var userName = newUser.userName;
-
-                        var userEmail = newUser.email;
-
-                        var userPassword = newUser.password;
-
-                        // Create sql insert variable
-
-                        var userNameSql = new SqlParameter("@userName", userName); ;
-
-                        var userEmailSql = new SqlParameter("@email", userEmail); ;
-
-                        var userPasswordSql = new SqlParameter("@password", userPassword); ;
-
-                        passwordSalt = hmac.Key;
-
-                        passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(userPassword));
-
-                        var passwordSaltSql = new SqlParameter("@passwordHash", passwordSalt);
-
-                        var passwordHashSql = new SqlParameter("@passwordSalt", passwordHash);
-
-                        var commandText = " INSERT INTO [dbo].[user] ([userName] ,[email] ,[password],[passwordHash],[passwordSalt]) VALUES(@userName,@email,@password,@passwordHash,@passwordSalt) ;";
-
-                        db.Database.ExecuteSqlRaw(commandText, userNameSql, userEmailSql, userPasswordSql, passwordSaltSql, passwordHashSql);
-
-                        db.SaveChanges();
-                    }
+                    UserDal userEmail = db.user?.Where(u => u.email == email).FirstOrDefault();
+                    return userEmail;
+                }
+                catch
+                {
+                    throw new Exception("Failed, user not found with email: " + email);
                 }
             }
-            catch 
-            {
-                throw new Exception("Error by creating user.");
-            }
-            
-        }*/
+        }
+
+
+
+
+        /*        private void CreatePasswordHash(UserDal newUser, out byte[] passwordHash, out byte[] passwordSalt)
+                {
+                    try
+                    {
+                        using (ApplicationDbContext db = new ApplicationDbContext())
+                        {
+                            using (var hmac = new HMACSHA512())
+                            {
+                                var userName = newUser.userName;
+
+                                var userEmail = newUser.email;
+
+                                var userPassword = newUser.password;
+
+                                // Create sql insert variable
+
+                                var userNameSql = new SqlParameter("@userName", userName); ;
+
+                                var userEmailSql = new SqlParameter("@email", userEmail); ;
+
+                                var userPasswordSql = new SqlParameter("@password", userPassword); ;
+
+                                passwordSalt = hmac.Key;
+
+                                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(userPassword));
+
+                                var passwordSaltSql = new SqlParameter("@passwordHash", passwordSalt);
+
+                                var passwordHashSql = new SqlParameter("@passwordSalt", passwordHash);
+
+                                var commandText = " INSERT INTO [dbo].[user] ([userName] ,[email] ,[password],[passwordHash],[passwordSalt]) VALUES(@userName,@email,@password,@passwordHash,@passwordSalt) ;";
+
+                                db.Database.ExecuteSqlRaw(commandText, userNameSql, userEmailSql, userPasswordSql, passwordSaltSql, passwordHashSql);
+
+                                db.SaveChanges();
+                            }
+                        }
+                    }
+                    catch 
+                    {
+                        throw new Exception("Error by creating user.");
+                    }
+
+                }*/
 
         public void Delete(string email)
         {
@@ -109,12 +128,12 @@ namespace DAL.services
             }
         }
 
-        public UserDal GetByEmail( string email )
+        public UserDal GetByEmail(string email)
         {
             using (ApplicationDbContext db = new ApplicationDbContext(_cnstr))
             {
-                /*UserDal userAccount = db.user?.FirstOrDefault(ua => ua.email == email);*/
-
+/*                UserDal userAccount = db.user?.FirstOrDefault(ua => ua.email == email);
+*/
                 UserDal? userAccount = db.user?.Where(ua => ua.email == email).FirstOrDefault();
 
                 return userAccount;
@@ -122,7 +141,7 @@ namespace DAL.services
         }
 
 
- 
+
         /// <summary>
         /// CHECK If User Exist send back the user model is a Boolean 
         /// </summary>
@@ -248,7 +267,6 @@ namespace DAL.services
                 }
             }
         }
-
 
 
 /*            /// <summary>

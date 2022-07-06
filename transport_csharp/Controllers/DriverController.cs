@@ -36,6 +36,14 @@ namespace entity_jwt_aspnetcore.Controllers
             return Ok(driver);
         }
 
+        [Route("driver/name/{driverName}")]
+        [HttpGet]
+        public IActionResult GetDriverById(string driverName)
+        {
+            DriverApiModel driver = _driverService.GetDriverByName(driverName).ToApi();
+            return Ok(driver);
+        }
+
         [Route("driver/create")]
         [HttpPost]
         public IActionResult CreateNewDriver([FromBody] DriverApiModel driver)

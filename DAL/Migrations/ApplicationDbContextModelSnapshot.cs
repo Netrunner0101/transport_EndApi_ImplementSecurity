@@ -229,7 +229,19 @@ namespace DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("idUser"), 1L, 1);
 
+                    b.Property<string>("adress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("city")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("lastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("password")
@@ -240,9 +252,6 @@ namespace DAL.Migrations
 
                     b.Property<byte[]>("passwordSalt")
                         .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("userName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("idUser");
 

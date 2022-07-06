@@ -37,7 +37,11 @@ namespace BLL.services
         public DriverModelBll GetDriverById(int iddriver)
         {
             return _driverService.GetById(iddriver).ToBll();
+        }
 
+        public DriverModelBll GetDriverByName(string name)
+        {
+            return _driverService.GetByName(name).ToBll();
         }
 
         public void UpdateDriver(DriverModelBll driver,int iddriver)

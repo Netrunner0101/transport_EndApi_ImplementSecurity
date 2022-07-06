@@ -38,6 +38,13 @@ namespace BLL.services
             return _customerService.GetById(idc).ToBll();
         }
 
+        // Return By Name
+        public CustomerModelBll GetByCustomerName(string name)
+        {
+            return _customerService.GetByName(name).ToBll();
+        }
+
+
         public void UpdateCustomer(CustomerModelBll customer, int idc)
         {
             _customerService.Update(customer.ToDal(),idc);

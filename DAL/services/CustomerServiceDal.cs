@@ -76,6 +76,17 @@ namespace DAL.services
             }
         }
 
+        // Return by id
+
+        public CustomerModelDal GetByName(string name)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext(_cnstr))
+            {
+                var cu = db.customer?.Where(c => c.name == name).FirstOrDefault();
+                return cu;
+            }
+        }
+
         // Update delivery relationship
 
         // PRECISION: You can add with N:N relation only with ICollection because Add() is Only available on Collection
@@ -178,6 +189,35 @@ namespace DAL.services
                 using (ApplicationDbContext db = new ApplicationDbContext(_cnstr))
                 {
                     var cudb = db.customer?.FirstOrDefault(c => c.id_customer.Equals(idc));
+
+                    cudb.name = customer.name;
+
+                    cudb.vat = customer.vat;
+
+                    cudb.email = customer.email;
+
+                    cudb.adress = customer.adress;
+
+                    cudb.phoneNumber = customer.phoneNumber;
+
+                    db.SaveChanges();
+                }
+            }
+            catch
+            {
+                throw new Exception("Update error it didn't work");
+            }
+
+        }
+
+        // Update by name
+        public void UpdateByName(CustomerModelDal customer, string name)
+        {
+            try
+            {
+                using (ApplicationDbContext db = new ApplicationDbContext(_cnstr))
+                {
+                    var cudb = db.customer?.FirstOrDefault(c => c.name.Equals(name));
 
                     cudb.name = customer.name;
 

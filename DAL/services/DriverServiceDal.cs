@@ -63,6 +63,16 @@ namespace DAL.services
             }
         }
 
+        // Return by name
+        public DriverModelDal GetByName(string name)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext(_cnstr))
+            {
+                var driver = db.driver.Where(ds => ds.name == name).FirstOrDefault();
+                return driver;
+            }
+        }
+
         public void Update(DriverModelDal driver, int iddriver)
         {
             try

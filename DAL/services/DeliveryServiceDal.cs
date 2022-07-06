@@ -78,6 +78,16 @@ namespace DAL.services
             }
         }
 
+        // Return by delivery code
+        public DeliveryModelDal GetByCode(string codeDel)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext(_cnstr))
+            {
+                var des = db.delivery.Where(ds => ds.numeroDelivery == codeDel).FirstOrDefault();
+                return des;
+            }
+        }
+
         public void Update(DeliveryModelDal delivery, int idd)
         {
             try

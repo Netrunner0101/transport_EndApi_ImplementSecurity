@@ -38,6 +38,11 @@ namespace BLL.services
             return _deliveryService.GetById(idtr).ToBll();
         }
 
+        public DeliveryModelBll GetDeliveryByCodeNumber(string codeDelivery)
+        {
+            return _deliveryService.GetByCode(codeDelivery).ToBll();
+        }
+
         /// <summary>
         /// Get transporter 
         /// </summary>

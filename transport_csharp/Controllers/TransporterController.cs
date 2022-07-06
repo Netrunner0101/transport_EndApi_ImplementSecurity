@@ -36,6 +36,14 @@ namespace entity_jwt_aspnetcore.Controllers
             return Ok(transporter);
         }
 
+        [Route("transporter/name/{name}")]
+        [HttpGet]
+        public IActionResult GetTransporterByName(string name)
+        {
+            TransporterApiModel transporter = _transporterService.GetTransporterByName(name).ToApi();
+            return Ok(transporter);
+        }
+
         [Route("transporter/create")]
         [HttpPost]
         public IActionResult CreateNewTransporter([FromBody] TransporterApiModel transporter)

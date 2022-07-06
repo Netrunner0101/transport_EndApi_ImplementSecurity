@@ -36,6 +36,14 @@ namespace entity_jwt_aspnetcore.Controllers
             return Ok(delivery);
         }
 
+        [Route("delivery/codedelivery/{codeDelivery}")]
+        [HttpGet]
+        public IActionResult GetDeliveryByCode(string codeDelivery)
+        {
+            DeliveryApiModel delivery = _deliveryService.GetDeliveryByCodeNumber(codeDelivery).ToApi();
+            return Ok(delivery);
+        }
+
         /// <summary>
         /// Get Specific transporter by Id
         /// </summary>
@@ -109,7 +117,7 @@ namespace entity_jwt_aspnetcore.Controllers
         /// <param name="iddel"></param>
         /// <returns> Ok(success message)</returns>
         /// 
-        [Route("delivery/{iddel}/addTransporter")]
+/*        [Route("delivery/{iddel}/addTransporter")]
         [HttpPut]
         public IActionResult UdpateDeliveryTransporter([FromBody] TransporterApiModel transporter, int iddel)
         {
@@ -121,7 +129,7 @@ namespace entity_jwt_aspnetcore.Controllers
             _deliveryService.UpdateDeliveryTransporter(transporter.ToBll(), iddel);
 
             return Ok(transporter);
-        }
+        }*/
 
         /// <summary>
         /// Update delivery by adding new transporter

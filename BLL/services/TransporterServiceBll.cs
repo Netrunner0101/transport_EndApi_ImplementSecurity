@@ -40,6 +40,11 @@ namespace BLL.services
             return _transporterServiceDal.GetById(idtr).ToBll();
         }
 
+        public TransporterModelBll GetTransporterByName(string name)
+        {
+            return _transporterServiceDal.GetByName(name).ToBll();
+        }
+
         public void UpdateTransporter(TransporterModelBll transporter, int idtr)
         {
             _transporterServiceDal.Update(transporter.ToDal(), idtr);

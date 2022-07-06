@@ -24,6 +24,11 @@ namespace BLL.services
             _authService.Create(newUser.ToDal());
         }
 
+        public UserBll GetUserDetailsByEmail(string email)
+        {
+            return _authService.GetDetailsByEmail(email).ToBll();
+        }
+
         public void DeleteUser(string email)
         {
             _authService.Delete(email);

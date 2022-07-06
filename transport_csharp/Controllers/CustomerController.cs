@@ -35,6 +35,14 @@ namespace entity_jwt_aspnetcore.Controllers
             return Ok(customer);
         }
 
+        [Route("customer/name/{name}")]
+        [HttpGet]
+        public IActionResult GetCustomerByName(string name)
+        {
+            CustomerApiModel customer = _customerService.GetByCustomerName(name).ToApi();
+            return Ok(customer);
+        }
+
         [Route("customer/create")]
         [HttpPost]
         public IActionResult CreateNewCustomer([FromBody]CustomerApiModel customer)
@@ -104,7 +112,7 @@ namespace entity_jwt_aspnetcore.Controllers
         /// <param name="cusDelivery"></param>
         /// <param name="idc"></param>
         /// <returns></returns>
-        [Route("customer/update/Delivery/{idc}")]
+/*        [Route("customer/update/Delivery/{idc}")]
         [HttpPut]
         public IActionResult updateCustomerDelivery([FromBody] DeliveryApiModel cusDelivery, int idc)
         {
@@ -115,7 +123,7 @@ namespace entity_jwt_aspnetcore.Controllers
             _customerService.UpdateCustomerDelivery(cusDelivery.ToBll(), idc);
 
             return Ok(cusDelivery);
-        }
+        }*/
 
         [Route("customer/delete/{idc}")]
         [HttpDelete]

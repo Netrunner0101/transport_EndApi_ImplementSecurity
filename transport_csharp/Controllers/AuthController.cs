@@ -39,21 +39,49 @@ namespace entity_jwt_aspnetcore.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserApiModel>> RegisterUser([FromBody] UserApiModel requestUser)
         {
-            // 1) First create user
-            _authService.CreateUser(requestUser.ToBll());
+            try
+            {
+                // 1) First create user
+                _authService.CreateUser(requestUser.ToBll());
 
-            string emailRequest = requestUser.email;
-            string passwordRequest = requestUser.password;
+                string emailRequest = requestUser.email;
+                string passwordRequest = requestUser.password;
 
 
-            // 2) Then create passwordhash
-            CreatePasswordHash(emailRequest, passwordRequest, out byte[] passwordHash, out byte[] passwordSalt);
+                // 2) Then create passwordhash
+                CreatePasswordHash(emailRequest, passwordRequest, out byte[] passwordHash, out byte[] passwordSalt);
 
-            requestUser.passwordHash = passwordHash;
+                requestUser.passwordHash = passwordHash;
 
-            requestUser.passwordSalt = passwordSalt;
+                requestUser.passwordSalt = passwordSalt;
 
-            return Ok(requestUser);
+                return Ok(requestUser);
+            }
+            catch
+            {
+                return BadRequest(" Error, User cannot be create .");
+            }  
+        }
+
+        /// <summary>
+        ///  Get user by email 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        [HttpGet("user/email/{email}")]
+        public async Task<ActionResult<UserApiModel>> GetUserByEmail(string email)
+        {
+            try
+            {
+                // Search by user
+                UserApiModel specificUser = _authService.GetUserDetailsByEmail(email).ToApi();
+
+                return Ok(specificUser);
+            }
+            catch
+            {
+                return BadRequest(" Error, User not found by email: "+email);
+            }
         }
 
         [HttpPost("login")]
@@ -66,22 +94,24 @@ namespace entity_jwt_aspnetcore.Controllers
                 return BadRequest("User not found" + "  user email  " + userCheckMail + "  login email  " + requestUser.email + " Password "+requestUser.password);
             }
 
-/*          byte[] passwordHashUser = searchHash(userCheckMail);
+            /*byte[] passwordHashUser = searchHash(userCheckMail);
 
             byte[] passwordHashSalt = searchSalt(userCheckMail);
 
             if (!VerifyPassordHash(requestUser.email, requestUser.password, passwordHashUser, passwordHashSalt))
             {
-                return BadRequest("Error , Wrong password" + "  " + requestUser.email + "  " + requestUser.password + "  " + passwordHashUser + "  " + passwordHashSalt);
-            }
-*/
-            /*  UserToken userTok = new UserToken();
+                return BadRequest("Error , Wrong password" + "  " + requestUser.email + "  " + requestUser.password + "  " + passwordHashUser + "  " + passwordHashSalt + " " + VerifyPassordHash(requestUser.email, requestUser.password, passwordHashUser, passwordHashSalt));
+            }*/
+
+            /*UserToken userTok = new UserToken();
 
               userTok.email = requestUser.email;
 
               userTok.password = requestUser.password;
 
               UserToken token = CreateToken(userTok, _jwtSettings);*/
+
+
 
             UserApiModel userJwt = searchUserApiModel(userCheckMail);
 
@@ -94,7 +124,6 @@ namespace entity_jwt_aspnetcore.Controllers
         {
             try
             {
-
                 UserToken usertoken = new UserToken();
                 /*              
                 List<Claim> claims = new List<Claim>();
@@ -207,37 +236,6 @@ namespace entity_jwt_aspnetcore.Controllers
             }
         }
 
-        private byte[] searchHash(string email)
-        {
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-                var commandText = "SELECT [passwordHash] FROM[dbo].[user] WHERE [email] = @email";
-
-                /*  byte[] result = (byte[])db.executeScalar(commandText, new { email = email });
-
-                  byte[] salt = Encoding.ASCII.GetBytes(result);
-
-                  return salt;*/
-
-                return (byte[])db.executeScalar(commandText, new { email = email });
-            }
-        }
-
-        private byte[] searchSalt(string email)
-        {
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-                var commandText = "SELECT [passwordSalt] FROM[dbo].[user] WHERE [email] = @email";
-
-/*                byte[] result = (byte[])db.executeScalar(commandText, new { email = email });
-
-                byte[] salt = Encoding.ASCII.GetBytes(result);*/
-
-                return (byte[])db.executeScalar(commandText, new { email = email });
-            }
-        }
-
-
        private UserApiModel searchUserApiModel(string email)
        {
             using (ApplicationDbContext db = new ApplicationDbContext())
@@ -248,37 +246,79 @@ namespace entity_jwt_aspnetcore.Controllers
             }
        }
 
-        private bool VerifyPassordHash(string email , string password, byte[] passwordHash, byte[] passwordSalt)
+        private byte[] searchSalt(string email)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var commandText = "SELECT [passwordSalt] FROM[dbo].[user] WHERE [email] = @email";
+
+                /*byte[] result = (byte[])db.executeScalar(commandText, new { email = email });*/
+
+                /* byte[] salt = Encoding.ASCII.GetBytes(result);*/
+
+                /* return (byte[])db.executeScalar(commandText, new { email = email });*/
+
+                return (byte[])db.executeScalar(commandText, new { email = email });
+            }
+        }
+
+        private byte[] searchHash(string email)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var commandText = "SELECT [passwordHash] FROM[dbo].[user] WHERE [email] = @email";
+/*
+                byte[] result = (byte[])db.executeScalar(commandText, new { email = email });*/
+
+                /*  byte[] salt = Encoding.ASCII.GetBytes(result);*/
+
+                /*return result;*/
+
+                /* return (byte[])db.executeScalar(commandText, new { email = email });*/
+
+                return (byte[])db.executeScalar(commandText, new { email = email });
+            }
+        }
+
+        private bool VerifyPassordHash(string email, string password, byte[] passwordHash, byte[] passwordSalt)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
 
-                var SqlEmail = new SqlParameter("@email", email);
+                using (var hmac = new HMACSHA512(passwordSalt))
+                {
+                    var computeHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                    return computeHash.SequenceEqual(passwordHash);
+                }
+
+                /*var SqlEmail = new SqlParameter("@email", email);*/
 
                 // retrouver password
 
-                var passwordSql = "SELECT [password] FROM[dbo].[user] WHERE [email] = @email";
+                /*var passwordSql = "SELECT [password] FROM[dbo].[user] WHERE [email] = @email";*/
 
                 // Retrouver passwordhash
 
-                var paswordhashSql = "SELECT [passwordHash] FROM[dbo].[user] WHERE [email] = @email";
+                /*var paswordhashSql = "SELECT [passwordHash] FROM[dbo].[user] WHERE [email] = @email";*/
 
                 // retrouver passwordsalt
 
-                var paswordsaltSql = "SELECT [passwordSalt] FROM[dbo].[user] WHERE [email] = @email";
+                /*var paswordsaltSql = "SELECT [passwordSalt] FROM[dbo].[user] WHERE [email] = @email";*/
 
                 // Execute the query
-                db.Database.ExecuteSqlRaw( passwordSql, paswordhashSql,paswordsaltSql, SqlEmail);
+                /*db.Database.ExecuteSqlRaw(passwordSql, paswordhashSql, paswordsaltSql, SqlEmail);*/
 
-                byte[] hash = Encoding.ASCII.GetBytes(paswordhashSql);
+                //old
+                /*byte[] hash = Encoding.ASCII.GetBytes(paswordhashSql);*/
 
-                byte[] salt = Encoding.ASCII.GetBytes(paswordsaltSql);
+                /*byte[] salt = Encoding.ASCII.GetBytes(paswordsaltSql);*/
 
-                using (var hmac = new HMACSHA512(salt))
+   /*             using (var hmac = new HMACSHA512(salt))
                 {
                     var computeHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(passwordSql));
                     return computeHash.SequenceEqual(hash);
-                }
+                }*/
+
             }
         }
 

@@ -74,6 +74,73 @@ namespace transport_csharp.logic
                 }
             }
         }
+        /*
+                private bool VerifyPassordHash(string email, string password, byte[] passwordHash, byte[] passwordSalt)
+                {
+                    using (ApplicationDbContext db = new ApplicationDbContext())
+                    {
+
+                        var SqlEmail = new SqlParameter("@email", email);
+
+                        // retrouver password
+
+                        var passwordSql = "SELECT [password] FROM[dbo].[user] WHERE [email] = @email";
+
+                        // Retrouver passwordhash
+
+                        var paswordhashSql = "SELECT [passwordHash] FROM[dbo].[user] WHERE [email] = @email";
+
+                        // retrouver passwordsalt
+
+                        var paswordsaltSql = "SELECT [passwordSalt] FROM[dbo].[user] WHERE [email] = @email";
+
+                        // Execute the query
+                        db.Database.ExecuteSqlRaw(passwordSql, paswordhashSql, paswordsaltSql, SqlEmail);
+
+                        byte[] hash = Encoding.ASCII.GetBytes(paswordhashSql);
+
+                        byte[] salt = Encoding.ASCII.GetBytes(paswordsaltSql);
+
+                        using (var hmac = new HMACSHA512(salt))
+                        {
+                            var computeHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(passwordSql));
+                            return computeHash.SequenceEqual(hash);
+                        }
+                    }
+                }
+*/
+        private byte[] searchHash(string email)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var commandText = "SELECT [passwordHash] FROM[dbo].[user] WHERE [email] = @email";
+
+                byte[] result = (byte[])db.executeScalar(commandText, new { email = email });
+
+/*                byte[] salt = Encoding.ASCII.GetBytes(result);*/
+
+                return result;
+
+/*                return (byte[])db.executeScalar(commandText, new { email = email });*/
+            }
+        }
+
+        private byte[] searchSalt(string email)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var commandText = "SELECT [passwordSalt] FROM[dbo].[user] WHERE [email] = @email";
+
+                byte[] result = (byte[])db.executeScalar(commandText, new { email = email });
+
+ /*               byte[] salt = Encoding.ASCII.GetBytes(result);*/
+
+                /* return (byte[])db.executeScalar(commandText, new { email = email });*/
+
+                return result;
+            }
+        }
+
 
     }
 }
