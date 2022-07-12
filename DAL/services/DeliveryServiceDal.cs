@@ -44,6 +44,7 @@ namespace DAL.services
                 if (de != null)
                 {
                     db.delivery.Remove(de);
+                    db.SaveChangesAsync();
                 }
             }
         }

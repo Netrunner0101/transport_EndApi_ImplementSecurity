@@ -47,7 +47,6 @@ namespace entity_jwt_aspnetcore.Controllers
                 string emailRequest = requestUser.email;
                 string passwordRequest = requestUser.password;
 
-
                 // 2) Then create passwordhash
                 CreatePasswordHash(emailRequest, passwordRequest, out byte[] passwordHash, out byte[] passwordSalt);
 
@@ -112,12 +111,16 @@ namespace entity_jwt_aspnetcore.Controllers
               UserToken token = CreateToken(userTok, _jwtSettings);*/
 
 
-
             UserApiModel userJwt = searchUserApiModel(userCheckMail);
 
             string jwtCreation = CreateToken(userJwt, _jwtSettings);
 
-            return Ok(jwtCreation);
+            // Creation de token
+            // not just jwtCreation but new token
+            // Be carefurl !! Return JSON WITH "token" JUST Take the token not the string
+            
+            return Ok(new { token= jwtCreation });
+
         }
 
         private string CreateToken(UserApiModel userApi, JwtSettings jwtSettings)

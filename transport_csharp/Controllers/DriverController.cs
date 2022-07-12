@@ -80,7 +80,7 @@ namespace entity_jwt_aspnetcore.Controllers
         {
             _driverService.DeleteDriver(iddriver);
 
-            return Ok("Sucess delete Transporter");
+            return Ok();
         }
 
     }

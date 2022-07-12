@@ -34,7 +34,7 @@ namespace DAL.services
             }
         }
 
-        public void Delete(int idc)
+        public async void Delete(int idc)
         {
             using (ApplicationDbContext db = new ApplicationDbContext(_cnstr))
             {
@@ -42,6 +42,7 @@ namespace DAL.services
                 if (cu != null)
                 {
                     db.customer?.Remove(cu);
+                    await db.SaveChangesAsync();
                 }
             }
         }

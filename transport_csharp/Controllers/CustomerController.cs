@@ -124,13 +124,14 @@ namespace entity_jwt_aspnetcore.Controllers
 
             return Ok(cusDelivery);
         }*/
-
+        
+        // Careful because when send back the return request in front if string there will be some problem 
         [Route("customer/delete/{idc}")]
         [HttpDelete]
         public IActionResult DeleteCustomer(int idc)
         {
             _customerService.DeleteCustomer(idc);
-            return Ok("Delete customer");
+            return Ok();
         }
     }
 }

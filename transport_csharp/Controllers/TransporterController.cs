@@ -142,7 +142,7 @@ namespace entity_jwt_aspnetcore.Controllers
         {
             _transporterService.DeleteTransporter(idtrans);
 
-            return Ok("Sucess delete transporter");
+            return Ok();
         }
 
     }

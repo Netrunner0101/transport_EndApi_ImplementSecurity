@@ -40,6 +40,7 @@ namespace DAL.services
                 if (dri != null)
                 {
                     db.driver.Remove(dri);
+                    db.SaveChangesAsync();
                 }
             }
         }

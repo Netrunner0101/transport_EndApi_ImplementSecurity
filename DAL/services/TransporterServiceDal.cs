@@ -41,6 +41,7 @@ namespace DAL.services
                 if (trans != null)
                 {
                     db.transporter.Remove(trans);
+                    db.SaveChangesAsync();
                 }
             }
         }

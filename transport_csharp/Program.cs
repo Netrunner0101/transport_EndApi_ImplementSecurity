@@ -16,6 +16,19 @@ builder.Configuration.Bind("AppSettings:jwt", jwtSettings);
 
 builder.Services.AddSingleton(jwtSettings);
 
+// Add CORS ASP.NET CORE Nugget in nugget package
+
+builder.Services.AddCors(
+    options =>
+    {
+        options.AddPolicy("_policyName", builder =>
+        {
+            builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+        }
+        );
+    }
+);
+
 
 // Add services to the container.
 
@@ -181,9 +194,11 @@ app.UseHttpsRedirection();
 // Add Authentication()
 app.UseAuthentication();
 
+// Be careful with the builder add NNEW  policy should be before the initialisation of api service !!!!!
+app.UseCors("_policyName");
+
 app.UseAuthorization();
 
-app.UseCors("EnableCORS");
 
 app.MapControllers();
 

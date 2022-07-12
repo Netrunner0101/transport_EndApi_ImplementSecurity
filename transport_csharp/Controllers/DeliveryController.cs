@@ -185,7 +185,7 @@ namespace entity_jwt_aspnetcore.Controllers
 
             _deliveryService.DeleteDelivery(iddel);
 
-            return Ok("Sucess delete delivery");
+            return Ok();
         }
 
 

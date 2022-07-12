@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace entity_jwt_aspnetcore.models
 {   
@@ -40,6 +41,7 @@ namespace entity_jwt_aspnetcore.models
 
         public string? email { get; set; }
 
+        [DataType(DataType.PhoneNumber)]
         public string? phoneNumber { get; set; }
 
 
