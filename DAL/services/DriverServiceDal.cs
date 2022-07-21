@@ -80,7 +80,14 @@ namespace DAL.services
             {
                 using (ApplicationDbContext db = new ApplicationDbContext(_cnstr))
                 {
-                    var driverdb = db.driver.FirstOrDefault(ds => ds.id_drive.Equals(iddriver)); 
+                    var driverdb = db.driver?.FirstOrDefault(ds => ds.id_drive.Equals(iddriver));
+
+                    driverdb.name = driver.name;
+
+                    driverdb.email = driver.email;
+
+                    driverdb.phoneNumber = driver.phoneNumber;
+
                     db.SaveChanges();
                 }
             }
