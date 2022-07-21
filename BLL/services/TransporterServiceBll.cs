@@ -45,9 +45,10 @@ namespace BLL.services
             return _transporterServiceDal.GetByName(name).ToBll();
         }
 
-        public void UpdateTransporter(TransporterModelBll transporter, int idtr)
+        // Be careful same id writting on all layers !!!!!
+        public void UpdateTransporter(TransporterModelBll transporter, int idtrans)
         {
-            _transporterServiceDal.Update(transporter.ToDal(), idtr);
+            _transporterServiceDal.Update(transporter.ToDal(), idtrans);
         }
 
         // Add driver model into join_table transporter_drivers

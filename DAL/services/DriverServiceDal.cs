@@ -32,7 +32,7 @@ namespace DAL.services
         }
 
 
-        public void Delete(int iddriver)
+        public async void Delete(int iddriver)
         {
             using (ApplicationDbContext db = new ApplicationDbContext(_cnstr))
             {
@@ -40,7 +40,7 @@ namespace DAL.services
                 if (dri != null)
                 {
                     db.driver.Remove(dri);
-                    db.SaveChangesAsync();
+                    await db.SaveChangesAsync();
                 }
             }
         }

@@ -68,23 +68,37 @@ namespace entity_jwt_aspnetcore.Controllers
         [HttpPut]
         public IActionResult UpdateTransporter([FromBody] TransporterApiModel transporter, int idtrans)
         {
+
+            // Be careful same id writting on all layers !!!!!
             if (transporter == null)
             {
                 return BadRequest("No update possible for transporter .");
             }
-
             _transporterService.UpdateTransporter(transporter.ToBll(), idtrans);
 
             return Ok(transporter);
         }
 
-        /// <summary>
-        /// Add transporter model into join relationship
-        /// </summary>
-        /// <param name="transDriver"> Driver Models (Choose from layer + don't forget mapper) </param>
-        /// <param name="idtrans"></param>
-        /// <returns></returns>
-        [Route("transporter/{idtrans}/update/driver")]
+        [Route("delete/transporter/{idtrans}")]
+        [HttpDelete]
+        public IActionResult DeleteTransporter(int idtrans)
+        {
+            _transporterService.DeleteTransporter(idtrans);
+
+            return Ok();
+        }
+
+    }
+}
+
+
+/// <summary>
+/// Add transporter model into join relationship
+/// </summary>
+/// <param name="transDriver"> Driver Models (Choose from layer + don't forget mapper) </param>
+/// <param name="idtrans"></param>
+/// <returns></returns>
+/*        [Route("transporter/{idtrans}/update/driver")]
         [HttpPut]
         public IActionResult UpdateTransporterDrivers([FromBody] DriverApiModel transDriver, int idtrans)
         {
@@ -97,14 +111,14 @@ namespace entity_jwt_aspnetcore.Controllers
 
             return Ok(transDriver);
         }
-
-        /// <summary>
-        /// Create new relation for transporter_driver join table
-        /// </summary>
-        /// <param name="idtrans"></param>
-        /// <param name="iddrive"></param>
-        /// <returns></returns>
-        [Route("transporterCreate/{idtrans}/driver/{iddrive}")]
+*/
+/// <summary>
+/// Create new relation for transporter_driver join table
+/// </summary>
+/// <param name="idtrans"></param>
+/// <param name="iddrive"></param>
+/// <returns></returns>
+/*        [Route("transporterCreate/{idtrans}/driver/{iddrive}")]
         [HttpPost]
         public IActionResult CreateTransporterDriversById(int idtrans, int iddrive)
         {
@@ -116,14 +130,14 @@ namespace entity_jwt_aspnetcore.Controllers
 
             return Ok("Success creating new relation in the table transporter_driver");
         }
-
-        /// <summary>
-        /// Update new relation for transporter_driver join table
-        /// </summary>
-        /// <param name="idtrans"></param>
-        /// <param name="iddrive"></param>
-        /// <returns></returns>
-        [Route("transporterUpdate/{idtrans}/driver/{iddrive}")]
+*/
+/// <summary>
+/// Update new relation for transporter_driver join table
+/// </summary>
+/// <param name="idtrans"></param>
+/// <param name="iddrive"></param>
+/// <returns></returns>
+/*        [Route("transporterUpdate/{idtrans}/driver/{iddrive}")]
         [HttpPut]
         public IActionResult UpdateTransporterDriversById(int idtrans, int iddrive)
         {
@@ -134,16 +148,4 @@ namespace entity_jwt_aspnetcore.Controllers
             _transporterService.UpdateTransporterDriversById(idtrans, iddrive);
 
             return Ok("Success updating new relation in the table transporter_driver");
-        }
-
-        [Route("transporterDelete/{idtrans}")]
-        [HttpDelete]
-        public IActionResult DeleteTransporter(int idtrans)
-        {
-            _transporterService.DeleteTransporter(idtrans);
-
-            return Ok();
-        }
-
-    }
-}
+        }*/

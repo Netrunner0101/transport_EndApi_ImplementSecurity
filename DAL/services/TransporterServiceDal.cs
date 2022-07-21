@@ -33,7 +33,7 @@ namespace DAL.services
         }
 
 
-        public void Delete(int idtr)
+        public async void Delete(int idtr)
         {
             using (ApplicationDbContext db = new ApplicationDbContext(_cnstr))
             {
@@ -41,7 +41,7 @@ namespace DAL.services
                 if (trans != null)
                 {
                     db.transporter.Remove(trans);
-                    db.SaveChangesAsync();
+                    await db.SaveChangesAsync();
                 }
             }
         }
@@ -85,13 +85,23 @@ namespace DAL.services
             }
         }
 
-        public void Update(TransporterModelDal transporter, int idtr)
-        {
+        public void Update(TransporterModelDal transporter, int idtrans)
+        {   
+            // Be careful same id writting on all layers !!!!!
             try
             {
                 using (ApplicationDbContext db = new ApplicationDbContext(_cnstr))
                 {
-                    var transdb = db.transporter?.FirstOrDefault(tr=> tr.id_transporter.Equals(idtr)); ;
+                    var transdb = db.transporter?.FirstOrDefault(tr=> tr.id_transporter.Equals(idtrans));
+
+                    transdb.name = transporter.name;
+
+                    transdb.adress = transporter.adress;
+
+                    transdb.email = transporter.email;
+
+                    transdb.phoneNumber = transporter.phoneNumber;
+
                     db.SaveChanges();
                 }
             }
