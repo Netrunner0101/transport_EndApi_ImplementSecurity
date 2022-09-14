@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "transport_csharp", "transport_csharp\transport_csharp.csproj", "{BEF3BFA2-7D79-4EF5-9B34-F117D36CD51C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "transport_csharp", "transport_csharp\transport_csharp.csproj", "{BEF3BFA2-7D79-4EF5-9B34-F117D36CD51C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{EDEA0902-706C-4D3E-97C8-83609860669F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{EDEA0902-706C-4D3E-97C8-83609860669F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{29AE48CA-CF0E-4380-92BE-2F26177C58FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL", "BLL\BLL.csproj", "{29AE48CA-CF0E-4380-92BE-2F26177C58FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -15,7 +15,10 @@ namespace DAL.data
         // CAUTION : when in appdbcontext dal the connection string can be only  \  but in the API it must be \\ (double slahs)
         public ApplicationDbContext() 
         {
-            this._cnstr = @"Data Source=DESKTOP-L4HCRF9\MSSQLSERVER01;Initial Catalog=tms_test;User ID=azerty;Password=azerty;";
+            this._cnstr = @"Data Source=SQL8004.site4now.net;Initial Catalog=db_a8b35d_majescticboydb;User Id=db_a8b35d_majescticboydb_admin;Password=Host@6572;";
+
+            // Smarterasp connectionstring
+           // this._cnstr = @"Data Source=SQL8004.site4now.net;Initial Catalog=db_a8b35d_majescticboydb;User Id=db_a8b35d_majescticboydb_admin;Password=YOUR_DB_PASSWORD";
         }
 
         // un second constructeur qui va aller communiquer avec l'application.
